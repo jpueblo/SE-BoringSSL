@@ -551,6 +551,7 @@ add_dependencies(all_tests urandom_test)
 
 add_executable(crypto_test ${CRYPTO_TEST_SOURCES} $<TARGET_OBJECTS:crypto_test_data>)
 target_link_libraries(crypto_test test_support_lib boringssl_gtest crypto)
+target_compile_definitions(crypto_test PRIVATE BORINGSSL_IMPLEMENTATION)
 add_dependencies(all_tests crypto_test)
 
 add_executable(ssl_test ${SSL_TEST_SOURCES})
