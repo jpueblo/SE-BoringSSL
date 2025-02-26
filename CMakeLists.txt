@@ -256,7 +256,7 @@ if(FUZZ)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer-no-link -fsanitize-coverage=edge,indirect-calls")
 endif()
 
-add_definitions(-DBORINGSSL_IMPLEMENTATION)
+#add_definitions(-DBORINGSSL_IMPLEMENTATION)
 
 if(BUILD_SHARED_LIBS)
   add_definitions(-DBORINGSSL_SHARED_LIBRARY)
@@ -551,7 +551,6 @@ add_dependencies(all_tests urandom_test)
 
 add_executable(crypto_test ${CRYPTO_TEST_SOURCES} $<TARGET_OBJECTS:crypto_test_data>)
 target_link_libraries(crypto_test test_support_lib boringssl_gtest crypto)
-target_compile_definitions(crypto_test PRIVATE BORINGSSL_IMPLEMENTATION)
 add_dependencies(all_tests crypto_test)
 
 add_executable(ssl_test ${SSL_TEST_SOURCES})
@@ -568,8 +567,8 @@ if(APPLE)
 endif()
 
 add_library(pki ${PKI_SOURCES})
+target_compile_definitions(pki PRIVATE _BORINGSSL_LIBPKI_)
 target_link_libraries(pki crypto)
-target_compile_definitions(pki PRIVATE BORINGSSL_IMPLEMENTATION)
 
 add_executable(pki_test ${PKI_TEST_SOURCES})
 target_compile_definitions(pki_test PRIVATE _BORINGSSL_LIBPKI_)
