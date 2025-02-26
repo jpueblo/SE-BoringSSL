@@ -571,8 +571,8 @@ target_link_libraries(pki crypto)
 target_compile_definitions(pki PRIVATE BORINGSSL_IMPLEMENTATION)
 
 add_executable(pki_test ${PKI_TEST_SOURCES})
+target_compile_definitions(pki_test PRIVATE _BORINGSSL_LIBPKI_)
 target_link_libraries(pki_test test_support_lib boringssl_gtest pki crypto)
-target_compile_definitions(pki_test PRIVATE BORINGSSL_IMPLEMENTATION)
 add_dependencies(all_tests pki_test)
 
 # The PKI library requires C++17.
